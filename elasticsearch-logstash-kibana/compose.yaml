@@ -26,9 +26,8 @@ services:
     environment:
       discovery.seed_hosts: logstash
       LS_JAVA_OPTS: "-Xms1g -Xmx1g"
-    # volumes:
-    # - ./logstash/pipeline/logstash-nginx.config:/usr/share/logstash/pipeline/logstash-nginx.config
-    # - ./logstash/nginx.log:/home/nginx.log
+    volumes:
+      - ./logstash/pipeline/:/usr/share/logstash/pipeline/
     ports:
       - "5000:5000/tcp"
       - "5000:5000/udp"
