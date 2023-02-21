@@ -4,5 +4,7 @@ filebeat.config.inputs:
   reload.enabled: true
   reload.period: 10s
 
-output.logstash:
-  hosts: ["localhost:5044"]
+output.console:
+  pretty: true
+# output.logstash:
+#   hosts: ["localhost:5044"]
