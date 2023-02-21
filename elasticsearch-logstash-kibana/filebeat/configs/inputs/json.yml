@@ -13,5 +13,4 @@ processors:
       target: ""
       overwrite_keys: true
       add_error_key: false
-  - add_host_metadata:
-      cache.ttl: 5m
+  - add_host_metadata: ~
