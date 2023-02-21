@@ -3,7 +3,7 @@ filebeat.inputs:
   tags: ["json"]
   enabled: true
   paths:
-    - ../../logs/json/*.log
+    - ../../../logs/json.log
 
 processors:
   - decode_json_fields:
