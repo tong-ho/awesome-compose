@@ -1,0 +1,17 @@
+filebeat.inputs:
+- type: log
+  tags: ["json"]
+  enabled: true
+  paths:
+    - ../../logs/json/*.log
+
+processors:
+  - decode_json_fields:
+      fields: ["message"]
+      process_array: false
+      max_depth: 10
+      target: ""
+      overwrite_keys: true
+      add_error_key: false
+  - add_host_metadata:
+      cache.ttl: 5m
