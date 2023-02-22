@@ -1,6 +1,6 @@
 - type: filestream
   # This needs to be unique. Renaming this will cause the logs to be processed again.
-  id: "json"
+  id: json
   enabled: true
   paths:
     - /usr/share/filebeat/sample_logs/json.log
@@ -12,7 +12,7 @@
         fields: [message]
         process_array: false
         max_depth: 10
-        target: "message"
+        target: message
         overwrite_keys: true
         add_error_key: false
     # Parse timestamp
