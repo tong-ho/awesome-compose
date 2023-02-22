@@ -12,22 +12,30 @@
         fields: [message]
         process_array: false
         max_depth: 10
-        target: message
+        target: "payload"
         overwrite_keys: true
         add_error_key: false
     # Parse timestamp
     - timestamp:
-        field: message.time
+        field: payload.time
         layouts:
           - 2/Jan/2006:15:04:05 -0700
           - 02/Jan/2006:15:04:05 -0700
         tests:
-          - 20/May/2015:03:05:56 +0000
+          - 02/May/2015:03:05:56 +0000
           - 2/May/2015:03:05:56 +0000
+    # Move field to root
+    - copy_fields:
+        fields:
+          - from: log.file.path
+            to: host.log_path
+        ignore_missing: true
+        fail_on_error: false
     # Get rid of any unnecessary fields
     - drop_fields:
         fields: [
-          message.time,
+          message,
+          payload.time,
           log
         ]
         ignore_missing: true
