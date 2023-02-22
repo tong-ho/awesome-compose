@@ -1,8 +1,17 @@
 filebeat.config.inputs:
   enabled: true
-  path: ./configs/inputs/*.yml
+  path: /usr/share/filebeat/config/inputs/*.yml
   reload.enabled: true
   reload.period: 10s
+
+#Global processors
+processors:
+  - drop_fields:
+      fields: [
+        ecs,
+        input,
+        agent
+      ]
 
 output.console:
   pretty: true

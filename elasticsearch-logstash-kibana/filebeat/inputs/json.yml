@@ -1,0 +1,36 @@
+- type: filestream
+  # This needs to be unique. Renaming this will cause the logs to be processed again.
+  id: "json"
+  enabled: true
+  paths:
+    - /usr/share/filebeat/sample_logs/json.log
+  processors:
+    #Add metadata about the host to determine where the logs are coming from
+    - add_host_metadata: ~
+    # The method in which the log will be parsed
+    - decode_json_fields:
+        fields: [message]
+        process_array: false
+        max_depth: 10
+        target: "message"
+        overwrite_keys: true
+        add_error_key: false
+    # Parse timestamp
+    - timestamp:
+        field: message.time
+        layouts:
+          - 2/Jan/2006:15:04:05 -0700
+          - 02/Jan/2006:15:04:05 -0700
+        tests:
+          - 20/May/2015:03:05:56 +0000
+          - 2/May/2015:03:05:56 +0000
+    # Get rid of any unnecessary fields
+    - drop_fields:
+        fields: [
+          message.time,
+          log
+        ]
+        ignore_missing: true
+    # Add tags to this log so that Logstash can send it to the appropriate pipeline
+    - add_tags:
+        tags: [json]
